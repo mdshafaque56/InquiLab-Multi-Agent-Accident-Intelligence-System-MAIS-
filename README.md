@@ -25,10 +25,9 @@ It integrates computer vision, event prediction, risk analytics, and automatic a
 ---
 <img width="1343" height="583" alt="image" src="https://github.com/user-attachments/assets/3e94aced-136c-4374-b51d-948a2d319eb5" />
 <img width="1347" height="596" alt="image" src="https://github.com/user-attachments/assets/9ad9cc72-7d95-4303-b8f5-7b685e396d2b" />
-<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/54159653-b83f-433d-b16a-d27b957c80be" />
-<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/58de2e5d-6189-4ab0-ab37-bcd990d09689" />
-<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/178ed55b-0920-4bb4-bdcb-42b7a470eb9a" />
-<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/c4801c04-2520-42d6-bdd6-7a4bb31f927d" />
+<img width="1350" height="584" alt="image" src="https://github.com/user-attachments/assets/afee4621-e942-4f5b-8fe9-911b835386a4" />
+<img width="1348" height="580" alt="image" src="https://github.com/user-attachments/assets/6b30754c-73e9-4963-ba83-de4d211a33ac" />
+
 
 ---
 # **Overview**
