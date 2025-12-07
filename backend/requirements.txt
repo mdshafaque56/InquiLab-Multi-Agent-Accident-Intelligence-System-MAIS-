@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic
+opencv-python
+numpy
+ultralytics
+pillow
+requests
+websockets
+aiofiles
+starlette
+pandas
+loguru
