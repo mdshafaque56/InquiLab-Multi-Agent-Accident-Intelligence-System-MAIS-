@@ -152,6 +152,7 @@
                 <p class="agent-desc">Risk scoring & ML models</p>
               </div>
             </div>
+
             <div class="agent-card online">
               <div class="agent-dot"></div>
               <div>
@@ -176,9 +177,16 @@
           </div>
           <canvas id="risk-chart" height="120"></canvas>
         </div>
+        <div class="panel panel-incidents">
+          <div class="panel-header">
+            <h2>🧾 Incident Timeline</h2>
+          </div>
+          <ul id="incident-list" class="incident-list"></ul>
+        </div>
       </section>
     </main>
     <div class="transition-layer" id="transition"></div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="dashboard.js"></script>
   </body>
 </html>

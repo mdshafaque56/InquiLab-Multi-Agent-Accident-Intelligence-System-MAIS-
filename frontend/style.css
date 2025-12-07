@@ -87,9 +87,10 @@ body:not(.dashboard-body) {
 .dashboard-body {
   display: flex;
   min-height: 100vh;
-  overflow: hidden;
-  background: radial-gradient(circle at top left, #111827, #02010a 55%, #000000 100%);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+
 
 /* Background fx */
 .bg-grid {
@@ -540,4 +541,44 @@ body:not(.dashboard-body) {
 }
 .transition-active {
   transform: scale(5);
+}
+.panel-incidents {
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.incident-list {
+  list-style: none;
+  margin-top: 6px;
+  padding-right: 4px;
+}
+
+.incident-item {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(59, 130, 246, 0.5);
+  background: radial-gradient(circle at left, rgba(59, 130, 246, 0.3), rgba(15, 23, 42, 0.95));
+  font-size: 0.8rem;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.incident-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.incident-meta {
+  font-size: 0.7rem;
+  color: #bfdbfe;
+}
+
+.incident-link {
+  font-size: 0.7rem;
+  color: #93c5fd;
+  text-decoration: underline;
+  cursor: pointer;
 }

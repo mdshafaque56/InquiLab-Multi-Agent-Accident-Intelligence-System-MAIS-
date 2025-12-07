@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InquiLab • Control Room</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="dashboard-body">
+    <!-- Background grid / glow -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-circle"></div>
+        <div>
+          <div class="logo-text">InquiLab</div>
+          <div class="logo-subtext">Accident Intelligence</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active">Dashboard</button>
+        <button class="nav-item">Live Streams</button>
+        <button class="nav-item">Analytics</button>
+        <button class="nav-item">Alerts</button>
+        <button class="nav-item">Settings</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="status-dot online"></div>
+        <span class="status-text">Control Room Online</span>
+      </div>
+    </aside>
+
+    <!-- MAIN AREA -->
+    <main class="main-area">
+      <!-- TOP BAR -->
+      <header class="top-bar">
+        <div>
+          <h1 class="top-title">Real-Time Accident Monitoring</h1>
+          <p class="top-subtitle">
+            AI + Agentic system watching Indian roads in real time.
+          </p>
+        </div>
+        <div class="top-meta">
+          <div class="chip">Mode: <span id="mode-label">Adaptive</span></div>
+          <div class="chip">Server: <span class="chip-dot"></span> Online</div>
+          <div class="chip time" id="time-chip"></div>
+        </div>
+      </header>
+
+      <!-- KPI CARDS -->
+      <section class="kpi-row">
+        <div class="kpi-card">
+          <p class="kpi-label">Active Cameras</p>
+          <p class="kpi-value" id="kpi-cameras">12</p>
+          <p class="kpi-foot">Streaming via RTSP</p>
+        </div>
+        <div class="kpi-card">
+          <p class="kpi-label">Accidents Detected (today)</p>
+          <p class="kpi-value danger" id="kpi-accidents">0</p>
+          <p class="kpi-foot">Auto-logged with evidence</p>
+        </div>
+        <div class="kpi-card">
+          <p class="kpi-label">Average Response Time</p>
+          <p class="kpi-value" id="kpi-response">4.3 min</p>
+          <p class="kpi-foot">From detection to dispatch</p>
+        </div>
+        <div class="kpi-card">
+          <p class="kpi-label">Risk Index (city)</p>
+          <p class="kpi-value" id="kpi-risk">0.32</p>
+          <p class="kpi-foot">0 = safe, 1 = critical</p>
+        </div>
+      </section>
+
+      <!-- MAIN GRID -->
+      <section class="grid-main">
+        <!-- LIVE VIDEO PANEL -->
+        <div class="panel panel-video">
+          <div class="panel-header">
+            <h2>📡 Live Stream</h2>
+            <span id="stream-status" class="badge badge-idle">Idle</span>
+          </div>
+
+          <div class="video-frame">
+            <img id="video-feed" alt="Live stream will appear here" />
+            <div class="video-overlay" id="video-overlay-text">
+              Waiting for frames...
+            </div>
+          </div>
+
+          <div class="panel-footer">
+            <button class="btn-primary" id="btn-connect-live">
+              Live Camera
+            </button>
+            <input
+              type="file"
+              id="video-input"
+              accept="video/mp4"
+              style="display: none"
+            />
+            <button class="btn-primary" id="btn-upload-video">
+              Upload Video
+            </button>
+
+            <button class="btn-primary" id="btn-play-video">Play Video</button>
+            <button class="btn-ghost" id="btn-disconnect">Disconnect</button>
+          </div>
+        </div>
+
+        <!-- ALERTS PANEL -->
+        <div class="panel panel-alerts">
+          <div class="panel-header">
+            <h2>🚨 Live Alerts</h2>
+          </div>
+          <ul class="alert-list" id="alert-list">
+            <!-- JS will prepend alerts here -->
+          </ul>
+        </div>
+      </section>
+
+      <!-- BOTTOM GRID -->
+      <section class="grid-bottom">
+        <!-- AGENT STATUS -->
+        <div class="panel panel-agents">
+          <div class="panel-header">
+            <h2>🤖 Agent Status</h2>
+          </div>
+          <div class="agent-grid">
+            <div class="agent-card online">
+              <div class="agent-dot"></div>
+              <div>
+                <p class="agent-name">VisionAgent</p>
+                <p class="agent-desc">YOLOv8 + CV inference</p>
+              </div>
+            </div>
+            <div class="agent-card online">
+              <div class="agent-dot"></div>
+              <div>
+                <p class="agent-name">PredictionAgent</p>
+                <p class="agent-desc">Risk scoring & ML models</p>
+              </div>
+            </div>
+
+            <div class="agent-card online">
+              <div class="agent-dot"></div>
+              <div>
+                <p class="agent-name">CommunicationAgent</p>
+                <p class="agent-desc">SMS / WhatsApp / Control Room</p>
+              </div>
+            </div>
+            <div class="agent-card online">
+              <div class="agent-dot"></div>
+              <div>
+                <p class="agent-name">OrchestrationAgent</p>
+                <p class="agent-desc">Multi-agent coordinator</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MINI ANALYTICS -->
+        <div class="panel panel-mini-chart">
+          <div class="panel-header">
+            <h2>📊 Risk Pulse</h2>
+          </div>
+          <canvas id="risk-chart" height="120"></canvas>
+        </div>
+        <div class="panel panel-incidents">
+          <div class="panel-header">
+            <h2>🧾 Incident Timeline</h2>
+          </div>
+          <ul id="incident-list" class="incident-list"></ul>
+        </div>
+      </section>
+    </main>
+    <div class="transition-layer" id="transition"></div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>

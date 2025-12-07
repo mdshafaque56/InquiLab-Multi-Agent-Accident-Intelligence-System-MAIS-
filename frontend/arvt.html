@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ARVT • Automated Trajectory Extraction</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+    body {
+        margin: 0;
+        background: #000;
+        color: #fff;
+        font-family: Poppins, Arial, sans-serif;
+        overflow-x: hidden;
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 42px;
+        background: linear-gradient(to right, #ec4899, #a855f7, #3b82f6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1100px;
+        margin: 30px auto;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 18px;
+        padding: 25px;
+        margin-top: 25px;
+        backdrop-filter: blur(10px);
+        transition: 0.3s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 0 25px rgba(236, 72, 153, 0.3);
+    }
+
+    .btn {
+        background: #ec4899;
+        padding: 10px 20px;
+        border-radius: 10px;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        background: #f472b6;
+    }
+
+    #video-box {
+        width: 100%;
+        height: 380px;
+        background: #111;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    #video-preview {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .loading {
+        font-size: 20px;
+        text-align: center;
+        margin-top: 10px;
+        color: #8b5cf6;
+    }
+
+    canvas {
+        margin-top: 20px;
+    }
+
+    .stats {
+        display: flex;
+        gap: 25px;
+        margin-top: 20px;
+        font-size: 18px;
+    }
+
+    .stat-box {
+        background: rgba(255,255,255,0.05);
+        padding: 15px 20px;
+        border-radius: 12px;
+        flex: 1;
+        text-align: center;
+    }
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<h1>ARVT — Automated Trajectory Extraction</h1>
+
+<div class="container">
+
+    <!-- Upload Panel -->
+    <div class="card">
+        <h2>Upload Video</h2>
+        <input type="file" id="video-input" accept="video/mp4">
+        <button class="btn" onclick="startSimulation()">Start Demo Processing</button>
+        <div id="status" class="loading"></div>
+    </div>
+
+    <!-- Simulated Video Output -->
+    <div class="card">
+        <h2>Processed Video (Simulated)</h2>
+        <div id="video-box">
+            <video id="video-preview" controls></video>
+        </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="card">
+        <h2>Trajectory Summary</h2>
+        <div class="stats">
+            <div class="stat-box">
+                <div id="stat-vehicles">0</div>
+                <div class="label">Vehicles Detected</div>
+            </div>
+            <div class="stat-box">
+                <div id="stat-max-speed">0 m/s</div>
+                <div class="label">Max Speed</div>
+            </div>
+            <div class="stat-box">
+                <div id="stat-distance">0 m</div>
+                <div class="label">Total Distance</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="card">
+        <h2>Speed Over Time</h2>
+        <canvas id="speed-chart" height="120"></canvas>
+    </div>
+
+    <div class="card">
+        <h2>Trajectory Map</h2>
+        <canvas id="traj-chart" height="220"></canvas>
+    </div>
+
+</div>
+
+<script>
+
+let speedChart, trajChart;
+
+function startSimulation() {
+    const file = document.getElementById("video-input").files[0];
+    if (!file) {
+        alert("Upload a video first!");
+        return;
+    }
+
+    let status = document.getElementById("status");
+
+    // Simulate real-time processing steps
+    let steps = [
+        "Uploading video...",
+        "Extracting frames...",
+        "Running YOLOv8 for detection...",
+        "Tracking vehicles...",
+        "Computing trajectories...",
+        "Estimating speeds...",
+        "Generating overlay video...",
+        "Preparing results..."
+    ];
+
+    let idx = 0;
+    let interval = setInterval(() => {
+        status.innerHTML = steps[idx];
+        idx++;
+
+        if (idx >= steps.length) {
+            clearInterval(interval);
+            status.innerHTML = "✔ Demo Complete";
+
+            // Show fake processed video
+            document.getElementById("video-preview").src =
+            "https://samplelib.com/lib/preview/mp4/sample-5s.mp4";
+
+            generateFakeStatistics();
+            drawSpeedChart();
+            drawTrajectoryChart();
+        }
+    }, 800);
+}
+
+function generateFakeStatistics() {
+    let v = Math.floor(Math.random() * 8) + 3;
+    let maxSpeed = (Math.random() * 16 + 5).toFixed(2);
+    let dist = (Math.random() * 40 + 20).toFixed(2);
+
+    document.getElementById("stat-vehicles").innerHTML = v;
+    document.getElementById("stat-max-speed").innerHTML = maxSpeed + " m/s";
+    document.getElementById("stat-distance").innerHTML = dist + " m";
+}
+
+function drawSpeedChart() {
+    let ctx = document.getElementById("speed-chart").getContext("2d");
+    let speeds = Array.from({length: 20}, () => (Math.random() * 15).toFixed(2));
+
+    speedChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: speeds.map((_,i)=>i),
+            datasets: [{
+                label: "Speed (m/s)",
+                data: speeds,
+                borderColor: "#ec4899",
+                borderWidth: 2
+            }]
+        }
+    });
+}
+
+function drawTrajectoryChart() {
+    let ctx = document.getElementById("traj-chart").getContext("2d");
+
+    let x = Array.from({length: 25}, () => Math.random() * 50);
+    let y = Array.from({length: 25}, () => Math.random() * 30);
+
+    trajChart = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: "Vehicle Path",
+                data: x.map((xv, i) => ({x: xv, y: y[i]})),
+                borderColor: "#3b82f6",
+                backgroundColor: "#60a5fa"
+            }]
+        },
+        options: {
+            scales: {
+                x: {title: {display:true, text:"X (m)" }},
+                y: {title: {display:true, text:"Y (m)" }}
+            }
+        }
+    });
+}
+
+</script>
+
+</body>
+</html>
